@@ -1,0 +1,10 @@
+---
+const { item } = Astro.props;
+---
+
+<article>
+  <h2><a href={`/item/${item.id}/`}>{item.titulo}</a></h2>
+  <p><strong>Poder:</strong> {item.poder} · <strong>Tipo:</strong> {item.tipo}</p>
+  <p><strong>Prazo final:</strong> {item.prazo_final}</p>
+  <p><strong>Certeza:</strong> {item.rotulo_certeza}</p>
+</article>

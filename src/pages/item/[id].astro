@@ -1,0 +1,44 @@
+---
+import itens from '../../../data/itens_ativos.json';
+
+export function getStaticPaths() {
+  return itens.map((item) => ({
+    params: { id: item.id },
+    props: { item }
+  }));
+}
+
+const { item } = Astro.props;
+const urlOficialEhLink = String(item.url_oficial).startsWith('http');
+const urlArquivadaEhLink = String(item.url_arquivada).startsWith('http');
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{item.titulo} | Dona Yô</title>
+  </head>
+  <body>
+    <main>
+      <a href="/">← Voltar ao feed</a>
+      <h1>{item.titulo}</h1>
+      <ul>
+        <li><strong>Poder:</strong> {item.poder}</li>
+        <li><strong>Tipo:</strong> {item.tipo}</li>
+        <li><strong>Peso regimental:</strong> {item.peso_regimental}</li>
+        <li><strong>Prazo final:</strong> {item.prazo_final}</li>
+        <li><strong>Rótulo de certeza:</strong> {item.rotulo_certeza}</li>
+        <li><strong>Fonte:</strong> {item.fonte}</li>
+        <li>
+          <strong>Fonte oficial:</strong>
+          {urlOficialEhLink ? <a href={item.url_oficial}>{item.url_oficial}</a> : item.url_oficial}
+        </li>
+        <li>
+          <strong>Fonte arquivada:</strong>
+          {urlArquivadaEhLink ? <a href={item.url_arquivada}>{item.url_arquivada}</a> : item.url_arquivada}
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

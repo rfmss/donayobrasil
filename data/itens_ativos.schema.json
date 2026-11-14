@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Itens ativos de participação popular",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "titulo",
+      "poder",
+      "tipo",
+      "peso_regimental",
+      "prazo_final",
+      "rotulo_certeza",
+      "url_oficial",
+      "url_arquivada",
+      "link_verificado_em",
+      "fonte"
+    ],
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "titulo": { "type": "string", "minLength": 1 },
+      "poder": {
+        "type": "string",
+        "enum": ["Legislativo", "Executivo", "Judiciário"]
+      },
+      "tipo": { "type": "string", "minLength": 1 },
+      "peso_regimental": { "type": "number" },
+      "prazo_final": { "type": "string", "format": "date" },
+      "rotulo_certeza": { "type": "string", "minLength": 1 },
+      "url_oficial": { "type": "string", "minLength": 1 },
+      "url_arquivada": { "type": "string", "minLength": 1 },
+      "link_verificado_em": {
+        "type": ["string", "null"],
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      },
+      "fonte": { "type": "string", "minLength": 1 }
+    },
+    "additionalProperties": false
+  }
+}

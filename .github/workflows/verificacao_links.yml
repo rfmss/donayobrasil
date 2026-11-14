@@ -1,0 +1,43 @@
+name: Verificação de links
+
+on:
+  schedule:
+    - cron: '30 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  verificar-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verificar status HTTP dos links oficiais
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.request
+          from pathlib import Path
+
+          itens = json.loads(Path('data/itens_ativos.json').read_text(encoding='utf-8'))
+          quebrados = []
+
+          for item in itens:
+            url = str(item.get('url_oficial', '')).strip()
+            if not url.startswith('http'):
+              continue  # TODO: substituir placeholder por URL real
+            try:
+              req = urllib.request.Request(url, method='HEAD')
+              with urllib.request.urlopen(req, timeout=20) as response:
+                if response.status >= 400:
+                  quebrados.append((item.get('id', 'sem-id'), url, response.status))
+            except Exception:
+              quebrados.append((item.get('id', 'sem-id'), url, 'erro de conexão'))
+
+          if quebrados:
+            for registro in quebrados:
+              print(f'ALERTA: link quebrado -> {registro[0]} | {registro[1]} | {registro[2]}')
+            raise SystemExit(1)
+
+          print('Nenhum link quebrado encontrado.')
+          PY
