@@ -1,0 +1,15 @@
+[
+  {
+    "id": "exemplo-consulta-publica-001",
+    "titulo": "[FICTÍCIO] Consulta sobre mobilidade urbana em cidades médias",
+    "poder": "Executivo",
+    "tipo": "Consulta pública",
+    "peso_regimental": 1,
+    "prazo_final": "2026-12-31",
+    "rotulo_certeza": "alta",
+    "url_oficial": "TODO: inserir URL oficial da fonte",
+    "url_arquivada": "TODO: inserir URL arquivada",
+    "link_verificado_em": null,
+    "fonte": "TODO: inserir fonte oficial"
+  }
+]

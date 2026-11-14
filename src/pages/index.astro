@@ -1,0 +1,26 @@
+---
+import ItemCard from '../components/ItemCard.astro';
+import itens from '../../data/itens_ativos.json';
+
+const itensOrdenados = [...itens].sort(
+  (a, b) => new Date(a.prazo_final).getTime() - new Date(b.prazo_final).getTime()
+);
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Dona Yô | Feed de participação popular</title>
+  </head>
+  <body>
+    <main>
+      <h1>Dona Yô</h1>
+      <p>Painel cívico não oficial com itens por urgência (prazo mais próximo primeiro).</p>
+      <nav>
+        <a href="/sobre/">Sobre</a>
+      </nav>
+      {itensOrdenados.map((item) => <ItemCard item={item} />)}
+    </main>
+  </body>
+</html>
